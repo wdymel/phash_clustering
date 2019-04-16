@@ -1,0 +1,5 @@
+# modules that are needed for this project
+# project made with python 3.6
+opencv-python
+pywin32
+jedi (semi-optional)

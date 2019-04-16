@@ -10,12 +10,6 @@ def p_hash(path, size=(32, 32), show=False):
     if img is None:
         raise RuntimeError
 
-    # FIXME sprawdzić dlaczego przy tym obrazku średnia wartość po transfromacie wychodzi ujemna
-    #   co powoduje że hasz przybiera formę samych jedynek
-    #   miejsce do ustawienia break pointa
-    if path == 'data/krzeslo9_obramowane.png':
-        print("")
-
     img = cv2.resize(img, size)         # resize image to smaller size
     imf = np.float32(img) / 255.        # covert values from 0..255 to 0..1
     dst = cv2.dct(imf)                  # run discrete cosine transform
@@ -32,8 +26,10 @@ def p_hash(path, size=(32, 32), show=False):
     average /= dst.size
 
     # further reduce the dct, set the hash bits to 0 or 1 depending whether they're above or below the average
-    dst[dst < average] = 0
-    dst[dst >= average] = 1
+    mask0 = dst < average
+    mask1 = dst >= average
+    dst[mask0] = 0
+    dst[mask1] = 1
 
     # convert hash bits to integer
     h = 0
