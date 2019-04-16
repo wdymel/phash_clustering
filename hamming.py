@@ -4,10 +4,10 @@ def hamming_distance(a, b):
         try:
             a = int(a, 16)
         except ValueError:
-            raise RuntimeError(f"parameter a = {a} is of type {type(a)} instead of int")
+            raise RuntimeError(f"parameter a = {a} must be of int type or hex str not {type(a)}")
     if type(b) is not int:
         try:
             b = int(b, 16)
         except ValueError:
-            raise RuntimeError(f"parameter a = {b} is of type {type(b)} instead of int")
+            raise RuntimeError(f"parameter a = {b} must be of int type or hex str not {type(b)}")
     return bin(a ^ b).count('1')

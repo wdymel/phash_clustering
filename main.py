@@ -25,6 +25,7 @@ for image in images:
             groups[gHash].append(image)
             added_to_group = True
             break
+    # if not matched with any existing group, create a new one
     if not added_to_group:
         groups[h] = [image]
 
