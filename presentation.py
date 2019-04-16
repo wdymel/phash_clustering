@@ -12,8 +12,7 @@ def display_img(caption, img, wait_for_key=True):
         cv2.waitKey(0)
 
 
-def show_grouped_images(groups, disp_single_groups=True):
-    path = "data/"
+def show_grouped_images(groups, path, disp_single_groups=True):
     screen_widht = GetSystemMetrics(0)
     for gHash, gImages in groups.items():
         # print(f"{gHash}: {gImages}")
