@@ -3,9 +3,12 @@ from os.path import isfile, join
 from phash import p_hash
 from hamming import hamming_distance
 from presentation import show_grouped_images
+from presentation import SaveGroupedImages
 
 # path to directory with tested images
-paths = ["Krzesla/", "KartyMicroSD/"]
+paths = ["Inputs/Krzesla/", "Inputs/KartyMicroSD/", "Inputs/Samochody/", "Inputs/Owoce/", "Inputs/Smartfony/"]
+outputs = ["Outputs/Krzesla/", "Outputs/KartyMicroSD/", "Outputs/Samochody/", "Outputs/Owoce/", "Outputs/Smartfony/"]
+
 
 for i in range (0, len(paths)):
         # get a list of all files in directory
@@ -14,7 +17,7 @@ for i in range (0, len(paths)):
         #   uses hash of first image in group as key
         groups = {}
         # by how many bits can hashes differ to be considered similar
-        threshold = 10
+        threshold = 12
 
         for image in images:
             h = p_hash(paths[i] + image)     # calc perceptual hash
@@ -37,7 +40,8 @@ for i in range (0, len(paths)):
             print(f"{gHash}: {gImages}")
 
         # display grouped images
-        show_grouped_images(groups, path=paths[i])
+        #show_grouped_images(groups, path=paths[i])
+        SaveGroupedImages(groups, path = paths[i], outputDirectoryName=outputs[i])
 
 
 

@@ -1,6 +1,8 @@
-import numpy as np
 import cv2.cv2 as cv2
+import numpy as np
 from win32api import GetSystemMetrics
+import os
+import errno
 
 
 def display_img(caption, img, wait_for_key=True):
@@ -55,9 +57,24 @@ def show_grouped_images(groups, path, disp_single_groups=True):
         # cv2.resizeWindow(name, w1, h1)
         # if disp_single_groups:
         #     cv2.waitKey(0)
-
+        
     if not disp_single_groups:
         cv2.waitKey(0)
     cv2.destroyAllWindows()
+
+def SaveGroupedImages(groups, path, outputDirectoryName):
+    for gHash, gImages in groups.items():
+        img1 = None
+        directory = outputDirectoryName + "/" + gHash + "/"
+        if not os.path.exists(os.path.dirname(directory)):
+            try:
+                os.makedirs(os.path.dirname(directory))
+            except OSError as exc: #Guard against race condition
+                if exc.errno != errno.EEXIST:
+                    raise
+        for image in gImages:
+            name = gHash + "_" + image
+            img1 = cv2.imread(path + image)
+            cv2.imwrite(directory + name, img1)
 
 
